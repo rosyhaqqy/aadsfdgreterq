@@ -14,13 +14,15 @@ zone "granz.channel.E14.com" {
         file "/etc/bind/jarkom/granz.channel.E14.com";
 };' > /etc/bind/named.conf.local
 
+mkdir /etc/bind/jarkom
+
 echo '
 ;
 ; BIND data file for local loopback interface
 ;
 $TTL    604800
 @       IN      SOA     riegel.canyon.E14.com root.riegel.canyon.E14.com. (
-			            2023110101    ; Serial
+                                    2023110101    ; Serial
                         604800        ; Refresh
                         86400         ; Retry
                         2419200       ; Expire
@@ -36,7 +38,7 @@ echo '
 ;
 $TTL    604800
 @       IN      SOA     granz.channel.E14.com root.granz.channel.E14.com. (
-			            2023110101    ; Serial
+                                    2023110101    ; Serial
                         604800        ; Refresh
                         86400         ; Retry
                         2419200       ; Expire
