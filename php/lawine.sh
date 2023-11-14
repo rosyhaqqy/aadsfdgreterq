@@ -29,7 +29,7 @@ echo 'server {
 }' > /etc/nginx/sites-available/granz.channel.yyy.com
 
 ln -s /etc/nginx/sites-available/granz.channel.yyy.com /etc/nginx/sites-enabled
-unlik /etc/nginx/sites-enabled/default
+unlink /etc/nginx/sites-enabled/default
 service php7.3-fpm restart
 service nginx restart
-nameserver 192.213.1.2 > /etc/resolv.conf
+echo nameserver 192.213.1.2 > /etc/resolv.conf
