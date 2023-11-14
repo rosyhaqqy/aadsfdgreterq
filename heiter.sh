@@ -1,4 +1,4 @@
-echo nameserver 192.168.122.1 > /etc/resolv.conf
+echo 7nameserver 192.168.122.1 > /etc/resolv.conf
 
 apt-get update
 apt-get install bind9 -y
@@ -29,7 +29,8 @@ $TTL    604800
                         604800 )      ; Negative Cache TTL
 ;
 @               IN      NS      riegel.canyon.E14.com.
-@               IN      A       192.213.3.1         ; IP Lawine
+@               IN      A       192.213.4.1         ; IP Frieren
+
 ' >  /etc/bind/jarkom/riegel.canyon.E14.com
 
 echo '
@@ -45,7 +46,18 @@ $TTL    604800
                         604800 )      ; Negative Cache TTL
 ;
 @               IN      NS      granz.channel.E14.com.
-@               IN      A       192.213.4.1         ; IP Frieren
+@               IN      A       192.213.3.1         ; IP Lawine
 ' >  /etc/bind/jarkom/granz.channel.E14.com
+
+echo 'options {
+        directory "/var/cache/bind";
+
+        forwarders {
+                   192.168.122.1;
+          };
+        //dnssec-validation auto;
+        allow-query{ any; };
+        listen-on-v6 { any; };
+};' > /etc/bind/named.conf.options
 
 service bind9 restart
