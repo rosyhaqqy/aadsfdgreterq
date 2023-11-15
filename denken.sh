@@ -20,3 +20,5 @@ chmod +x /run.sh
 echo '[mysqld]
 skip-networking=0
 skip-bind-address' >> /etc/mysql/my.cnf
+
+echo nameserver 192.213.1.2 > /etc/resolv.conf

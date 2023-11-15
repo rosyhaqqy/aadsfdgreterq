@@ -1,4 +1,4 @@
-apt-get update && apt-get install mariadb-client -y
+apt-get update && apt-get install mariadb-client htop -y
 apt-get install -y lsb-release ca-certificates apt-transport-https software-properties-common gnupg2
 curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg
 sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
@@ -116,3 +116,5 @@ chmod -R 777 storage
 
 service nginx start
 service php8.0-fpm start
+
+echo nameserver 192.213.1.2 > /etc/resolv.conf

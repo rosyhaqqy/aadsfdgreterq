@@ -1,5 +1,5 @@
 echo nameserver 192.168.122.1 > /etc/resolv.conf
-apt-get update && apt-get install nginx git php7.3 php7.3-fpm -y
+apt-get update && apt-get install nginx git php7.3 php7.3-fpm htop -y
 service php7.3-fpm start
 service nginx start
 echo '#LB
@@ -39,7 +39,7 @@ server {
         proxy_set_header    Host $http_host;
 
         auth_basic "Restricted";
-        auth_basic_user_file /etc/nginx/rahasiakita/.htpasswd;
+        auth_basic_user_file /etc/nginx/rahasisakita/.htpasswd;
 
         allow 192.213.3.69;
         allow 192.213.3.70;
@@ -65,8 +65,8 @@ ln -s /etc/nginx/sites-available/lb-php /etc/nginx/sites-enabled
 unlink /etc/nginx/sites-enabled/default
 
 apt-get install apache2-utils -y
-mkdir /etc/nginx/rahasiakita/
-htpasswd -bc /etc/nginx/rahasiakita/.htpasswd netics ajkE14
+mkdir /etc/nginx/rahasisakita/
+htpasswd -bc /etc/nginx/rahasisakita/.htpasswd netics ajkE14
 
 service nginx restart
 
