@@ -1,3 +1,4 @@
+echo nameserver 192.168.122.1 > /etc/resolv.conf
 apt-get update && apt-get install mariadb-server -y
 service mysql start
 echo '#!/bin/bash
@@ -20,5 +21,7 @@ chmod +x /run.sh
 echo '[mysqld]
 skip-networking=0
 skip-bind-address' >> /etc/mysql/my.cnf
+
+service mysql restart
 
 echo nameserver 192.213.1.2 > /etc/resolv.conf
