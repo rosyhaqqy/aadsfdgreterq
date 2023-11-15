@@ -38,8 +38,18 @@ server {
         proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header    Host $http_host;
 
-        auth_basic "Admin";
+        auth_basic "Restricted";
         auth_basic_user_file /etc/nginx/rahasiakita/.htpasswd;
+
+        allow 192.213.3.69;
+        allow 192.213.3.70;
+        allow 192.213.4.167;
+        allow 192.213.4.168;
+        deny all;
+    }
+
+    location /its {
+        proxy_pass https://www.its.ac.id;
     }
 
     location ~ /\.ht {
@@ -53,10 +63,11 @@ server {
 
 ln -s /etc/nginx/sites-available/lb-php /etc/nginx/sites-enabled
 unlink /etc/nginx/sites-enabled/default
-service nginx restart
 
 apt-get install apache2-utils -y
-mkdir /etc/nginx/rahasisakita/
-htpasswd -bc /etc/nginx/rahasisakita/.htpasswd netics ajkE14
+mkdir /etc/nginx/rahasiakita/
+htpasswd -bc /etc/nginx/rahasiakita/.htpasswd netics ajkE14
+
+service nginx restart
 
 echo nameserver 192.213.1.2 > /etc/resolv.conf

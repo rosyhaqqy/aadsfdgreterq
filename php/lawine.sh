@@ -32,4 +32,5 @@ ln -s /etc/nginx/sites-available/granz.channel.yyy.com /etc/nginx/sites-enabled
 unlink /etc/nginx/sites-enabled/default
 service php7.3-fpm restart
 service nginx restart
+apt-get install htop -y
 echo nameserver 192.213.1.2 > /etc/resolv.conf
