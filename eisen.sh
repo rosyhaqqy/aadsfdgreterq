@@ -2,11 +2,27 @@ echo nameserver 192.168.122.1 > /etc/resolv.conf
 apt-get update && apt-get install nginx git php7.3 php7.3-fpm -y
 service php7.3-fpm start
 service nginx start
-echo '#Default menggunakan Round Robin
+echo '#LB
 upstream backend  {
+    # Default menggunakan Round Robin
     server 192.213.3.1 weight=640;
     server 192.213.3.2 weight=200;
     server 192.213.3.3 weight=25;
+    # server 192.213.3.1;
+    # server 192.213.3.2;
+    # server 192.213.3.3;
+
+    # least_conn;
+    # server 192.213.3.1;
+    # server 192.213.3.2;
+    # server 192.213.3.3;
+
+    # ip_hash;
+    # server 192.213.3.1;
+    # server 192.213.3.2;
+    # server 192.213.3.3;
+
+    # hash $request_uri consistent;
     # server 192.213.3.1;
     # server 192.213.3.2;
     # server 192.213.3.3;
