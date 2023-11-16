@@ -96,12 +96,14 @@ echo 'server {
     # pass PHP scripts to FastCGI server
     location ~ \.php$ {
         include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/var/run/php/php8.0-fpm.sock;
+        # fastcgi_pass unix:/var/run/php/php8.0-fpm.sock;
+        fastcgi_pass unix:/var/run/php/php8.0-fpm-eisen-site.sock;
     }
 
     location ~ /\.ht {
         deny all;
     }
+    
 
     error_log /var/log/nginx/implementasi_error.log;
     access_log /var/log/nginx/implementasi_access.log;
@@ -113,6 +115,38 @@ unlink /etc/nginx/sites-enabled/default
 chown -R www-data.www-data /var/www/laravel-praktikum-jarkom/storage
 chmod -R 777 public
 chmod -R 777 storage
+
+echo '
+[eisen_site]
+user = eisen_user
+group = eisen_user
+listen = /var/run/php8.0-fpm-eisen-site.sock
+listen.owner = www-data
+listen.group = www-data
+php_admin_value[disable_functions] = exec,passthru,shell_exec,system
+php_admin_flag[allow_url_fopen] = off
+
+pm = dynamic
+pm.max_children = 5
+pm.start_servers = 3
+pm.min_spare_servers = 1
+pm.max_spare_servers = 5
+
+# pm.max_children = 35
+# pm.start_servers = 5
+# pm.min_spare_servers = 3
+# pm.max_spare_servers = 10
+
+# pm.max_children = 75
+# pm.start_servers = 10
+# pm.min_spare_servers = 5
+# pm.max_spare_servers = 20
+
+pm.process_idle_timeout = 10s
+' > /etc/php/8.0/fpm/pool.d/eisen.conf
+
+groupadd eisen_user
+useradd -g eisen_user eisen_user
 
 service nginx start
 service php8.0-fpm start

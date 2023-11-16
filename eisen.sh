@@ -58,10 +58,52 @@ server {
 
     error_log /var/log/nginx/lb_error.log;
     access_log /var/log/nginx/lb_access.log;
-}' > /etc/nginx/sites-available/lb-php
+}
 
+#LB
+upstream backend-laravel {
+    # Default menggunakan Round Robin
+    server 192.213.4.1;
+    server 192.213.4.2;
+    server 192.213.4.3;
 
-ln -s /etc/nginx/sites-available/lb-php /etc/nginx/sites-enabled
+    # least_conn;
+    # server 192.213.4.1;
+    # server 192.213.4.2;
+    # server 192.213.4.3;
+}
+
+server {
+    listen 8000;
+    server_name _;
+
+    location / {
+        proxy_pass http://backend-laravel;
+        proxy_set_header    X-Real-IP $remote_addr;
+        proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header    Host $http_host;
+    }
+
+    location /frieren/ {
+        proxy_bind 192.213.2.2;
+        proxy_pass http://192.213.4.1/index.php;
+    }
+
+    location /flamme/ {
+        proxy_bind 192.213.2.2;
+        proxy_pass http://192.213.4.2/index.php;
+    }
+
+    location /fern/ {
+        proxy_bind 192.213.2.2;
+        proxy_pass http://192.213.4.3/index.php;
+    }
+
+    error_log /var/log/nginx/lb_error.log;
+    access_log /var/log/nginx/lb_access.log;
+}' > /etc/nginx/sites-available/lb-jarkom
+
+ln -s /etc/nginx/sites-available/lb-jarkom /etc/nginx/sites-enabled
 unlink /etc/nginx/sites-enabled/default
 
 apt-get install apache2-utils -y
