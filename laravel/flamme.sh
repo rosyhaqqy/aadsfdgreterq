@@ -132,15 +132,15 @@ pm = dynamic
 ; pm.min_spare_servers = 1
 ; pm.max_spare_servers = 5
 
- pm.max_children = 35
- pm.start_servers = 5
- pm.min_spare_servers = 3
- pm.max_spare_servers = 10
+; pm.max_children = 35
+; pm.start_servers = 5
+; pm.min_spare_servers = 3
+; pm.max_spare_servers = 10
 
-; pm.max_children = 75
-; pm.start_servers = 10
-; pm.min_spare_servers = 5
-; pm.max_spare_servers = 20
+pm.max_children = 75
+pm.start_servers = 10
+pm.min_spare_servers = 5
+pm.max_spare_servers = 20
 
 pm.process_idle_timeout = 10s
 ' > /etc/php/8.0/fpm/pool.d/eisen.conf
