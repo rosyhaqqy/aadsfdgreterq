@@ -22,9 +22,23 @@ iface eth4 inet static
 	address 192.213.4.14
 	netmask 255.255.255.0
 
-# Clients
+# Richter
 auto eth0
 iface eth0 inet dhcp
+
+# Stark
+auto eth0
+iface eth0 inet dhcp
+
+# Revolte
+auto eth0
+iface eth0 inet dhcp
+hwaddress ether 3e:6c:9e:d0:88:fe
+
+# Sein
+auto eth0
+iface eth0 inet dhcp
+hwaddress ether 46:05:70:39:71:8f
 
 # Himmel
 auto eth0

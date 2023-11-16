@@ -37,6 +37,16 @@ subnet 192.213.4.0 netmask 255.255.255.0 {
     max-lease-time 5760;
 }
 
+host Revolte {
+    hardware ethernet 3e:6c:9e:d0:88:fe;
+    fixed-address 192.213.3.69;
+}
+
+host Sein {
+    hardware ethernet 46:05:70:39:71:8f;
+    fixed-address 192.213.4.167;
+}
+
 host Lawine {
     hardware ethernet 1e:99:c9:88:bf:09;
     fixed-address 192.213.3.1;
